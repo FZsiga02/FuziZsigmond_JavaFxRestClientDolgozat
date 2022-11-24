@@ -6,14 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class ListAnimalController extends Controller{
 
@@ -119,5 +117,29 @@ public class ListAnimalController extends Controller{
     }
 
     public void deleteClick(ActionEvent actionEvent) {
+        int selectedIndex = animalTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex == -1) {
+            warning("Please select a pet from the list first");
+            return;
+        }
+
+       Animal selected = animalTable.getSelectionModel().getSelectedItem();
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmation.setHeaderText(String.format("Are you sure you want to delete %s?", selected.getName()));
+        Optional<ButtonType> optionalButtonType = confirmation.showAndWait();
+        if (optionalButtonType.isEmpty()) {
+            System.err.println("Unknown error occurred");
+            return;
+        }
+        ButtonType clickedButton = optionalButtonType.get();
+        if (clickedButton.equals(ButtonType.OK)) {
+            String url = App.BASE_URL + "/" + selected.getId();
+            try {
+                RequestHandler.delete(url);
+                loadAnimalsFromServer();
+            } catch (IOException e) {
+                error("An error occurred while communicating with the server");
+            }
+        }
     }
 }
