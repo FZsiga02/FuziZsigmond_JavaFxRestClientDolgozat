@@ -85,6 +85,37 @@ public class ListAnimalController extends Controller{
     }
 
     public void updateClick(ActionEvent actionEvent) {
+        int selectedIndex = animalTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex == -1) {
+            warning("Please select a pet from the list first");
+            return;
+        }
+        Animal selected = animalTable.getSelectionModel().getSelectedItem();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("update-animal-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 640, 480);
+            Stage stage = new Stage();
+            stage.setTitle("Update Pet");
+            stage.setScene(scene);
+            UpdateAnimalController controller = fxmlLoader.getController();
+            controller.setAnimal(selected);
+            stage.show();
+            insertButton.setDisable(true);
+            updateButton.setDisable(true);
+            deleteButton.setDisable(true);
+            stage.setOnHidden(event -> {
+                insertButton.setDisable(false);
+                updateButton.setDisable(false);
+                deleteButton.setDisable(false);
+                try {
+                    loadAnimalsFromServer();
+                } catch (IOException e) {
+                    error("An error occurred while communicating with the server");
+                }
+            });
+        } catch (IOException e) {
+            error("Could not load form", e.getMessage());
+        }
     }
 
     public void deleteClick(ActionEvent actionEvent) {
