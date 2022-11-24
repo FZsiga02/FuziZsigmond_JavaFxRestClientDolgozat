@@ -22,7 +22,7 @@ public class CreateAnimalController extends Controller{
     @FXML
     private void initialize() {
         SpinnerValueFactory.IntegerSpinnerValueFactory valueFactory =
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 200, 30);
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, 10);
         ageField.setValueFactory(valueFactory);
     }
 
