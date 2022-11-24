@@ -1,5 +1,6 @@
 package hu.petrik.fuzizsigmond_javafxrestclientdolgozat;
 
+import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,10 +48,10 @@ public class ListAnimalController extends Controller{
         Response response = RequestHandler.get(App.BASE_URL);
         String content = response.getContent();
         Gson converter = new Gson();
-        Person[] people = converter.fromJson(content, Person[].class);
-        peopleTable.getItems().clear();
-        for (Person person : people) {
-            peopleTable.getItems().add(person);
+        Animal[] animals = converter.fromJson(content, Animal[].class);
+       animalTable.getItems().clear();
+        for (Animal animal : animals) {
+            animalTable.getItems().add(animal);
         }
     }
 

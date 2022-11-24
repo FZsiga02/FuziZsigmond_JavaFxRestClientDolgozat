@@ -1,14 +1,18 @@
 package hu.petrik.fuzizsigmond_javafxrestclientdolgozat;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Animal {
     private int id;
     @Expose
+    @SerializedName("Pet's name")
     private String name;
     @Expose
+    @SerializedName("Pet's age")
     private int age;
     @Expose
+    @SerializedName("Bird")
     private boolean bird;
 
     public Animal(int id, String name, int age, boolean bird){
