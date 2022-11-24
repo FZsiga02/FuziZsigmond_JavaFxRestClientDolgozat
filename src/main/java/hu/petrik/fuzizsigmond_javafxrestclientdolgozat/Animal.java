@@ -1,9 +1,14 @@
 package hu.petrik.fuzizsigmond_javafxrestclientdolgozat;
 
+import com.google.gson.annotations.Expose;
+
 public class Animal {
     private int id;
+    @Expose
     private String name;
+    @Expose
     private int age;
+    @Expose
     private boolean bird;
 
     public Animal(int id, String name, int age, boolean bird){
