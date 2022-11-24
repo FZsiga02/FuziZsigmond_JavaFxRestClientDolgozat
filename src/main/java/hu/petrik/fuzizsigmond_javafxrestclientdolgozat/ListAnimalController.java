@@ -43,6 +43,17 @@ public class ListAnimalController extends Controller{
         });
     }
 
+    private void loadAnimalsFromServer() throws IOException {
+        Response response = RequestHandler.get(App.BASE_URL);
+        String content = response.getContent();
+        Gson converter = new Gson();
+        Person[] people = converter.fromJson(content, Person[].class);
+        peopleTable.getItems().clear();
+        for (Person person : people) {
+            peopleTable.getItems().add(person);
+        }
+    }
+
     public void insertClick(ActionEvent actionEvent) {
     }
 
