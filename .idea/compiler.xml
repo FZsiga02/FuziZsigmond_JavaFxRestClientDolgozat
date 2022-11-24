@@ -13,4 +13,9 @@
       <module name="FuziZsigmond_JavaFxRestClientDolgozat" target="11" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="FuziZsigmond_JavaFxRestClientDolgozat" options="--add-exports jdk.internal.le/jdk.internal.org.jline.utils=hu.petrik.fuzizsigmond_javafxrestclientdolgozat --add-exports java.base/sun.security.ssl=hu.petrik.fuzizsigmond_javafxrestclientdolgozat" />
+    </option>
+  </component>
 </project>
